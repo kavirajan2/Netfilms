@@ -9,7 +9,7 @@ function MoviesSection({ title,movies }) {
         <div className={styles.moviesSection}>
             <h2 className={styles.title}>{title}</h2>
             <div className={styles.movies}>
-                {movies.map((movie) => (
+                {Array.isArray(movies) && movies.map((movie) => (
                     <div className={styles.movie} key={movie.id}>
                         <Link href={`/movie/${movie.id}`}>
                             <Image src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}

@@ -1,26 +1,45 @@
 import React from 'react';
 import HomeContainer from '@/containers/home';
 
-import Movies from '@/mocks/movies.json';
+
+import {getCategories,getSingleCategory, getPopularMovies, getTopRatedMovies} from "@/api/api";
+import MoviesSection from "@/components/movies-section";
+
+const fetchMovies = async (params) => {
+    let selectedCategory = null;
+    const [categories, popularMovies,
+        topRatedMovies] = await Promise.all([
+        getCategories(),
+        getPopularMovies(),
+        getTopRatedMovies()
+    ]);
+
+    if (params && params.category && params.category.length > 0) {
+        let genreId = params.category[0];
+        selectedCategory = await getSingleCategory(genreId);
+    }
+
+    return {categories, popularMovies, topRatedMovies, selectedCategory};
+};
 
 async function delay(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });
 }
-async function HomePage({params}) {
-    await delay(2000);
-    let selectedCategory;
 
-    if (params && params.category && params.category.length > 0) {
-        selectedCategory = true;
-    }
+async function HomePage({params}) {
+    let {categories, popularMovies,
+        topRatedMovies, selectedCategory} = await fetchMovies(params);
 
     return (
-        <HomeContainer selectedCategory={{
-            id: params.category?.[0] ?? "",
-            movies: selectedCategory ? Movies.results.slice(0, 5) : [],
-        }}
+        <HomeContainer
+            MovieCategories={categories}
+            PopularMovies={popularMovies}
+            TopRatedMovies={topRatedMovies}
+            selectedCategory={
+                selectedCategory ? <MoviesSection title="Selected Category" movies={selectedCategory.results.slice(0, 5)}/> : null
+        }
         />
     );
 }
