@@ -25,7 +25,7 @@ git clone git@github.com:DEVR4N/netfilms.git
 cd netfilms
 ```
 
-3 . Copy `.env-example` file and create dublicate.
+3 . Copy `.env-example` file and create dublicate. Use API key from TMDB.
 ```
 cp .env.example .env
 ```
