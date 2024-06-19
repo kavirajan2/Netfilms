@@ -36,3 +36,8 @@ npm run dev
 ```
 
 5 . Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+### Preview
+<img src="https://github.com/DEVR4N/Netfilms/assets/77250053/aba56eb7-fd40-4c3c-8f32-0c40cd52b460" alt="netfilms-preview" width="500"/>
+
